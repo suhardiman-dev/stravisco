@@ -3,69 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMPIT Ar-Rahmah Makassar - Alumni STRAVISCO</title>
+    <title>STRAVISCO — Alumni SMPIT Ar-Rahmah Makassar</title>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Ar-Rahmah Standard Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ============ RESET & VARIABLES ============ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ============ RESET & AR-RAHMAH DESIGN SYSTEM ============ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary: #2AA8E0;
             --dark: #1A8DC0;
+            --deeper: #0F6A94;
             --light: #EBF8FF;
             --accent: #C9A84C;
-            --text: #1a1a1a;
-            --text-light: #666;
-            --border: #e0e0e0;
-            --shadow: 0 8px 40px rgba(42, 168, 224, 0.12);
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --accent-light: #F5EDD4;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --text-muted: #94A3B8;
+            --border: #E2E8F0;
+            --white: #FFFFFF;
+            --bg: #F8FAFC;
+            --shadow: 0 4px 24px rgba(42, 168, 224, 0.10);
+            --shadow-lg: 0 12px 48px rgba(42, 168, 224, 0.15);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
         }
 
         body {
-            font-family: 'Nunito', sans-serif;
+            font-family: var(--font-body);
             color: var(--text);
-            line-height: 1.6;
-            background: #fff;
+            line-height: 1.7;
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         /* ============ NAVBAR ============ */
         .navbar {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
-            box-shadow: var(--shadow-sm);
+            padding: 0;
         }
 
         .navbar-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0.85rem 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .navbar-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.4rem;
             color: var(--primary);
             text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        .navbar-logo span {
+            color: var(--accent);
         }
 
         .navbar-menu {
@@ -76,15 +86,28 @@
         }
 
         .navbar-menu a {
-            color: var(--text);
+            color: var(--text-light);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+            font-size: 0.88rem;
+            letter-spacing: 0.01em;
+            transition: color 0.2s;
         }
 
-        .navbar-menu a:hover {
-            color: var(--primary);
+        .navbar-menu a:hover { color: var(--primary); }
+
+        .navbar-menu .nav-cta {
+            background: var(--primary);
+            color: var(--white) !important;
+            padding: 7px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .navbar-menu .nav-cta:hover {
+            background: var(--dark);
+            transform: translateY(-1px);
         }
 
         .hamburger {
@@ -95,51 +118,52 @@
         }
 
         .hamburger span {
-            width: 25px;
-            height: 3px;
+            width: 24px;
+            height: 2.5px;
             background: var(--text);
             border-radius: 2px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .navbar-menu {
                 display: none;
                 position: absolute;
-                top: 60px;
+                top: 100%;
                 left: 0;
                 right: 0;
                 flex-direction: column;
                 gap: 0;
-                background: white;
-                padding: 1rem 0;
+                background: var(--white);
+                padding: 0.5rem 0;
                 border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow);
             }
 
-            .navbar-menu.active {
-                display: flex;
-            }
+            .navbar-menu.active { display: flex; }
 
-            .navbar-menu li {
-                width: 100%;
-            }
+            .navbar-menu li { width: 100%; }
 
             .navbar-menu a {
                 display: block;
-                padding: 0.75rem 24px;
+                padding: 0.85rem 24px;
                 border-bottom: 1px solid var(--border);
             }
 
-            .hamburger {
-                display: flex;
+            .navbar-menu .nav-cta {
+                margin: 0.75rem 24px;
+                text-align: center;
+                display: block;
             }
+
+            .hamburger { display: flex; }
         }
 
-        /* ============ HERO SECTION ============ */
+        /* ============ HERO — STRAVISCO IDENTITY ============ */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: white;
-            padding: 120px 24px;
+            background: linear-gradient(160deg, var(--primary) 0%, var(--deeper) 60%, #0A4F73 100%);
+            color: var(--white);
+            padding: 100px 24px 120px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -148,247 +172,302 @@
         .hero::before {
             content: '';
             position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: drift 20s linear infinite;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.06) 0%, transparent 40%);
+            pointer-events: none;
         }
 
-        @keyframes drift {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        /* Geometric pattern — STRAVISCO identity */
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(30deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(-30deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 35px;
+            animation: heroShift 30s linear infinite;
+        }
+
+        @keyframes heroShift {
+            to { transform: translate(60px, 35px); }
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
-            max-width: 800px;
+            z-index: 2;
+            max-width: 720px;
             margin: 0 auto;
         }
 
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            animation: slideDown 0.8s ease-out;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: fadeDown 0.6s ease both;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-badge::before {
+            content: '✦';
+            color: var(--accent);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 4rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+            animation: fadeDown 0.7s ease 0.1s both;
+        }
+
+        .hero-title .stravisco-text {
+            display: block;
+            font-family: var(--font-body);
+            font-style: normal;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: 0.6rem;
         }
 
         .hero-tagline {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            animation: slideUp 0.8s ease-out 0.2s both;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin: 1.2rem 0 2.2rem;
+            opacity: 0.85;
+            line-height: 1.7;
+            animation: fadeUp 0.7s ease 0.25s both;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp 0.7s ease 0.4s both;
         }
 
-        .btn-primary {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 12px 32px;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 30px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 0.92rem;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            transition: all 0.25s;
+            font-family: var(--font-body);
         }
 
-        .btn-primary:hover {
+        .btn-gold {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-gold:hover {
+            background: #B89840;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 600px) {
-            .hero {
-                padding: 80px 24px;
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .hero-tagline {
-                font-size: 1.1rem;
-            }
+            .hero { padding: 70px 20px 90px; }
+            .hero-title { font-size: 2.6rem; }
+            .hero-title .stravisco-text { font-size: 0.9rem; }
         }
 
-        /* ============ ABOUT SECTION ============ */
+        /* ============ SECTIONS — SHARED ============ */
         .section {
             max-width: 1200px;
             margin: 0 auto;
             padding: 80px 24px;
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+        .section-header {
             text-align: center;
-            color: var(--primary);
+            margin-bottom: 3rem;
         }
 
-        .about-content {
+        .section-tag {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 2.4rem;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .section-sub {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-top: 0.6rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-alt { background: var(--bg); }
+
+        @media (max-width: 600px) {
+            .section { padding: 56px 20px; }
+            .section-title { font-size: 1.8rem; }
+        }
+
+        /* ============ ABOUT ============ */
+        .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
             gap: 3rem;
             align-items: center;
         }
 
         .about-text {
             color: var(--text-light);
-            line-height: 1.8;
+            font-size: 1rem;
+            line-height: 1.85;
         }
 
         .about-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         .stat-card {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 20px;
+            background: var(--white);
+            padding: 1.8rem;
+            border-radius: var(--radius);
             text-align: center;
-            border: 2px solid var(--primary);
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
         }
 
         .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-family: var(--font-display);
+            font-size: 2.6rem;
             color: var(--primary);
-            font-weight: 700;
         }
 
         .stat-label {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 0.3rem;
         }
 
-        @media (max-width: 600px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; }
         }
 
-        /* ============ GALERI FOTO ============ */
+        /* ============ GALLERY ============ */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 8px;
         }
 
         .gallery-item {
             position: relative;
             cursor: pointer;
-            transform-origin: center;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
+            overflow: hidden;
+            border-radius: var(--radius-sm);
         }
 
         .gallery-img {
             width: 100%;
             aspect-ratio: 1;
             object-fit: cover;
-            border-radius: 4px;
-            box-shadow: var(--shadow);
             display: block;
+            transition: transform 0.35s;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.08);
         }
 
         .gallery-img.loading {
             background: var(--light);
         }
 
-        @media (max-width: 900px) {
-            .gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-        }
+        @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; } }
 
         /* ============ LIGHTBOX ============ */
         .lightbox {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(5px);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
             z-index: 2000;
-            animation: fadeIn 0.3s ease;
         }
 
         .lightbox.active {
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: lbFade 0.25s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
 
         .lightbox-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90vh;
-            animation: zoomIn 0.3s ease;
-        }
-
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            max-width: 92%;
+            max-height: 92vh;
         }
 
         .lightbox-img {
@@ -397,119 +476,116 @@
             max-height: 85vh;
             object-fit: contain;
             border-radius: 8px;
+            animation: lbZoom 0.3s ease;
+        }
+
+        @keyframes lbZoom {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .lightbox-controls {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 16px;
+            right: 16px;
             color: white;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
             background: rgba(0,0,0,0.5);
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            transition: background 0.3s ease;
+            transition: background 0.2s;
         }
 
-        .lightbox-controls:hover {
-            background: rgba(0,0,0,0.7);
-        }
+        .lightbox-controls:hover { background: rgba(0,0,0,0.7); }
 
         .lightbox-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             color: white;
-            font-size: 3rem;
+            font-size: 2.2rem;
             cursor: pointer;
             user-select: none;
-            background: rgba(0,0,0,0.5);
-            width: 60px;
-            height: 60px;
+            background: rgba(0,0,0,0.4);
+            width: 52px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            transition: background 0.3s ease;
+            transition: background 0.2s;
         }
 
-        .lightbox-nav:hover {
-            background: rgba(0,0,0,0.7);
-        }
-
-        .lightbox-prev {
-            left: 20px;
-        }
-
-        .lightbox-next {
-            right: 20px;
-        }
+        .lightbox-nav:hover { background: rgba(0,0,0,0.6); }
+        .lightbox-prev { left: 16px; }
+        .lightbox-next { right: 16px; }
 
         .lightbox-caption {
             color: white;
             text-align: center;
-            padding: 15px 20px;
-            font-size: 0.95rem;
+            padding: 14px 20px;
+            font-size: 0.92rem;
         }
 
         .lightbox-counter {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.82rem;
         }
 
-        /* ============ ALBUM KEGIATAN ============ */
-        .filter-buttons {
+        /* ============ ALBUMS ============ */
+        .filter-bar {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.6rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 8px 20px;
-            border: 2px solid var(--primary);
-            background: white;
-            color: var(--primary);
+            padding: 7px 20px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--text-light);
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-family: var(--font-body);
+            transition: all 0.2s;
         }
 
         .filter-btn.active {
             background: var(--primary);
-            color: white;
+            border-color: var(--primary);
+            color: var(--white);
         }
 
-        .filter-btn:hover {
-            transform: translateY(-2px);
+        .filter-btn:hover:not(.active) {
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
         .albums-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            gap: 1.2rem;
         }
 
         .album-card {
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            border-radius: 15px;
+            border-radius: var(--radius);
             aspect-ratio: 1;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
+            transition: transform 0.25s;
         }
 
-        .album-card:hover {
-            transform: translateY(-5px);
-        }
+        .album-card:hover { transform: translateY(-4px); }
 
         .album-thumbnail {
             width: 100%;
@@ -520,26 +596,21 @@
 
         .album-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
             display: flex;
             align-items: flex-end;
-            padding: 20px;
+            padding: 18px;
             color: white;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s;
         }
 
-        .album-card:hover .album-overlay {
-            opacity: 1;
-        }
+        .album-card:hover .album-overlay { opacity: 1; }
 
         .album-title {
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 0.95rem;
         }
 
         .album-placeholder {
@@ -547,33 +618,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-light);
-            font-size: 3rem;
+            color: var(--text-muted);
+            font-size: 2.5rem;
         }
 
-        @media (max-width: 900px) {
-            .albums-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+        @media (max-width: 900px) { .albums-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .albums-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; } }
 
-        @media (max-width: 600px) {
-            .albums-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-        }
-
-        /* ============ VIDEO ============ */
+        /* ============ VIDEOS ============ */
         .videos-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .video-card {
-            border-radius: 15px;
+            border-radius: var(--radius);
             overflow: hidden;
+            background: var(--white);
+            border: 1px solid var(--border);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-3px);
             box-shadow: var(--shadow);
         }
 
@@ -581,56 +649,44 @@
             width: 100%;
             aspect-ratio: 16/9;
             border: none;
-            border-radius: 15px;
+            display: block;
         }
 
-        .video-info {
-            padding: 1.5rem;
-            background: var(--light);
-        }
+        .video-info { padding: 1.2rem; }
 
         .video-title {
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
         }
 
         .video-desc {
-            color: var(--text-light);
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
             line-height: 1.5;
         }
 
-        @media (max-width: 900px) {
-            .videos-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .videos-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 900px) { .videos-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .videos-grid { grid-template-columns: 1fr; } }
 
         /* ============ YEARBOOK ============ */
         .yearbook-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .yearbook-card {
-            text-align: center;
-            border-radius: 15px;
+            background: var(--white);
+            border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-            background: white;
+            border: 1px solid var(--border);
+            transition: transform 0.25s, box-shadow 0.25s;
         }
 
         .yearbook-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
         .yearbook-photo {
@@ -640,84 +696,77 @@
             display: block;
         }
 
-        .yearbook-info {
-            padding: 1.5rem;
-        }
+        .yearbook-info { padding: 1.3rem; }
 
         .yearbook-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 0.2rem;
         }
 
         .yearbook-kelas {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.8rem;
         }
 
         .yearbook-cita {
+            font-size: 0.85rem;
             color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
             line-height: 1.5;
+            margin-bottom: 0.8rem;
         }
 
         .yearbook-quote {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1rem;
-            color: var(--accent);
+            font-family: var(--font-display);
             font-style: italic;
-            padding-top: 1rem;
-            border-top: 2px solid var(--light);
+            font-size: 0.9rem;
+            color: var(--accent);
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border);
+            line-height: 1.5;
         }
 
-        @media (max-width: 900px) {
-            .yearbook-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+        @media (max-width: 900px) { .yearbook-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .yearbook-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; } }
 
-        @media (max-width: 600px) {
-            .yearbook-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-        }
-
-        /* ============ KOMENTAR SECTION ============ */
+        /* ============ KOMENTAR ============ */
         .comment-form {
-            background: var(--light);
+            background: var(--bg);
+            border: 1px solid var(--border);
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: var(--radius);
             margin-bottom: 3rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+        .form-group { margin-bottom: 1.2rem; }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+            font-size: 0.88rem;
             color: var(--text);
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 10px 15px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text);
+            background: var(--white);
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .form-group input:focus,
@@ -733,95 +782,122 @@
         }
 
         .char-counter {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
             text-align: right;
         }
 
         .form-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
         }
 
-        .btn-secondary {
+        .btn-submit {
             flex: 1;
             padding: 12px;
-            border: 2px solid var(--border);
-            background: white;
-            color: var(--text);
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-reset {
+            flex: 0.6;
+            padding: 12px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--text-light);
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            transition: border-color 0.2s;
         }
 
-        .btn-secondary:hover {
+        .btn-reset:hover {
             border-color: var(--primary);
             color: var(--primary);
         }
 
-        .btn-primary {
-            flex: 1;
-        }
-
         .comments-list {
-            max-width: 700px;
+            max-width: 680px;
             margin: 0 auto;
         }
 
         .comment-item {
-            background: white;
+            background: var(--white);
             padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-sm);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
             border-left: 4px solid var(--primary);
+            transition: box-shadow 0.2s;
         }
+
+        .comment-item:hover { box-shadow: var(--shadow-sm); }
 
         .comment-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
         }
 
         .comment-avatar {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--dark));
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-weight: 800;
+            font-size: 0.85rem;
+            flex-shrink: 0;
         }
 
-        .comment-meta {
-            flex: 1;
-        }
+        .comment-meta { flex: 1; }
 
         .comment-name {
             font-weight: 700;
-            color: var(--text);
+            font-size: 0.95rem;
         }
 
         .comment-kelas {
-            font-size: 0.85rem;
-            color: var(--text-light);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
         }
 
         .comment-time {
-            font-size: 0.85rem;
-            color: var(--text-light);
+            font-size: 0.78rem;
+            color: var(--text-muted);
         }
 
         .comment-text {
             color: var(--text);
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
             word-wrap: break-word;
         }
 
@@ -830,83 +906,86 @@
             border: none;
             color: var(--primary);
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
+            font-weight: 700;
+            font-size: 0.82rem;
+            font-family: var(--font-body);
+            transition: color 0.2s;
         }
 
-        .reply-btn:hover {
-            color: var(--dark);
-        }
+        .reply-btn:hover { color: var(--dark); }
 
         .replies {
             margin-top: 1rem;
-            padding-top: 1rem;
+            padding-top: 0.8rem;
             border-top: 1px solid var(--border);
         }
 
         .reply-item {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1.8rem;
             position: relative;
         }
 
         .reply-item::before {
-            content: '└─';
+            content: '↳';
             position: absolute;
             left: 0;
-            color: var(--text-light);
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .reply-header {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .reply-name {
             font-weight: 700;
-            color: var(--text);
-            font-size: 0.95rem;
+            font-size: 0.88rem;
         }
 
         .reply-time {
-            font-size: 0.8rem;
-            color: var(--text-light);
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
 
         .reply-text {
+            font-size: 0.9rem;
             color: var(--text);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
             word-wrap: break-word;
         }
 
         .reply-form {
-            margin-top: 1rem;
+            margin-top: 0.8rem;
             padding: 1rem;
-            background: var(--light);
-            border-radius: 8px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
             display: none;
         }
 
-        .reply-form.active {
-            display: block;
-        }
+        .reply-form.active { display: block; }
 
-        .reply-form-group {
-            margin-bottom: 1rem;
-        }
+        .reply-form-group { margin-bottom: 0.8rem; }
 
         .reply-form-group input,
         .reply-form-group textarea {
             width: 100%;
             padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 0.9rem;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            background: var(--white);
+        }
+
+        .reply-form-group input:focus,
+        .reply-form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
         }
 
         .reply-form-buttons {
@@ -915,13 +994,14 @@
         }
 
         .reply-form-buttons button {
-            padding: 6px 15px;
+            padding: 7px 16px;
             border: none;
-            border-radius: 20px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-family: var(--font-body);
+            transition: all 0.2s;
         }
 
         .reply-submit {
@@ -929,54 +1009,41 @@
             color: white;
         }
 
-        .reply-submit:hover {
-            background: var(--dark);
-        }
+        .reply-submit:hover { background: var(--dark); }
 
         .reply-cancel {
             background: var(--border);
-            color: var(--text);
-        }
-
-        .reply-cancel:hover {
-            background: var(--text-light);
-        }
-
-        .no-comments {
-            text-align: center;
-            padding: 2rem;
             color: var(--text-light);
         }
 
+        .reply-cancel:hover { background: var(--text-muted); color: white; }
+
+        .no-comments {
+            text-align: center;
+            padding: 2.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
         .comment-status {
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-sm);
             margin-bottom: 1rem;
             text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
             display: none;
         }
 
-        .comment-status.show {
-            display: block;
-        }
-
-        .comment-status.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .comment-status.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
+        .comment-status.show { display: block; }
+        .comment-status.success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+        .comment-status.error { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
 
         /* ============ SCROLL REVEAL ============ */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(24px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .reveal.visible {
@@ -986,83 +1053,90 @@
 
         /* ============ FOOTER ============ */
         footer {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: white;
+            background: var(--text);
+            color: rgba(255, 255, 255, 0.7);
             text-align: center;
-            padding: 2rem 24px;
-            margin-top: 5rem;
+            padding: 2.5rem 24px;
         }
 
-        footer p {
-            margin: 0.5rem 0;
+        footer strong {
+            color: var(--white);
         }
 
-        .footer-text {
-            font-size: 0.95rem;
-            opacity: 0.95;
+        .footer-brand {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 0.3rem;
         }
 
-        .footer-copyright {
-            font-size: 0.85rem;
-            opacity: 0.8;
+        .footer-sub {
+            font-size: 0.88rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-copy {
+            font-size: 0.78rem;
+            opacity: 0.5;
             margin-top: 1rem;
         }
 
-        /* ============ LOADING & ANIMATIONS ============ */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--light);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        /* ============ LOADING ============ */
+        .loading-wrap {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .loader {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
     </style>
 </head>
 <body>
-    <!-- ============ KONFIGURASI AWAL ============ -->
+
+    <!-- ============ CONFIG ============ -->
     <script>
-        // ===== IDENTITAS & KONFIGURASI - EDIT DI SINI =====
         const CONFIG = {
             NAMA_SEKOLAH: 'SMPIT Ar-Rahmah Makassar',
             NAMA_ANGKATAN: 'STRAVISCO',
             TAHUN: '2025/2026',
             SHEETS_ID: '1A2nmMEU77L5qB3Yw6kqdyvEc2AP52LforJfZ3en-vGs',
-            WARNA_PRIMER: '#2AA8E0',
-            WARNA_GELAP: '#1A8DC0',
-            WARNA_PUCAT: '#EBF8FF',
-            WARNA_AKSEN: '#C9A84C',
-            GAS_URL: 'https://script.google.com/macros/s/AKfycby68o_8aw_axJqhQKJQstsChSsvmlknziqyQZhtR8Gdg87xN0o6O7Uzw8_qXwH6uoPF/exec'
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbyudrnDiKEqLbPf109jCYnmtodJxMmGDmKOYE6Gk2LFF5NRvnmcsW9wTZV6Sx0Ca3hg/exec'
         };
-
-        // Apply custom colors
-        document.documentElement.style.setProperty('--primary', CONFIG.WARNA_PRIMER);
-        document.documentElement.style.setProperty('--dark', CONFIG.WARNA_GELAP);
-        document.documentElement.style.setProperty('--light', CONFIG.WARNA_PUCAT);
-        document.documentElement.style.setProperty('--accent', CONFIG.WARNA_AKSEN);
     </script>
 
     <!-- ============ NAVBAR ============ -->
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="#" class="navbar-logo">📚 Alumni</a>
+            <a href="#" class="navbar-logo">Alumni <span>STRAVISCO</span></a>
             <ul class="navbar-menu" id="navbarMenu">
                 <li><a href="#about">Tentang</a></li>
                 <li><a href="#galeri">Galeri</a></li>
                 <li><a href="#albums">Album</a></li>
                 <li><a href="#video">Video</a></li>
                 <li><a href="#yearbook">Yearbook</a></li>
-                <li><a href="#komentar">💬 Sapa Alumni</a></li>
+                <li><a href="#komentar" class="nav-cta">💬 Sapa Alumni</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
@@ -1070,37 +1144,50 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Alumni <span id="heroAngkatan">STRAVISCO</span></h1>
-            <p class="hero-tagline" id="heroTagline">Selamat datang di halaman alumni kami</p>
-            <a href="#yearbook" class="btn-primary">Lihat Yearbook</a>
+            <div class="hero-badge">SMPIT Ar-Rahmah Makassar</div>
+            <h1 class="hero-title">
+                Alumni
+                <span class="stravisco-text" id="heroAngkatan">S T R A V I S C O</span>
+            </h1>
+            <p class="hero-tagline" id="heroTagline">Selamat datang di halaman alumni kami — tempat kenangan bertemu kembali.</p>
+            <div class="hero-actions">
+                <a href="#yearbook" class="btn btn-gold">Lihat Yearbook</a>
+                <a href="#komentar" class="btn btn-outline">Sapa Sahabatmu</a>
+            </div>
         </div>
     </section>
 
     <!-- ============ ABOUT ============ -->
-    <section class="section" id="about">
-        <h2 class="section-title">Tentang Angkatan</h2>
-        <div class="about-content reveal">
+    <section class="section section-alt" id="about">
+        <div class="section-header reveal">
+            <div class="section-tag">Mengenal Kami</div>
+            <h2 class="section-title">Tentang Angkatan</h2>
+        </div>
+        <div class="about-grid reveal">
             <div class="about-text" id="aboutText">
                 <p>Memuat data...</p>
             </div>
             <div class="about-stats" id="aboutStats">
                 <div class="stat-card">
-                    <div class="stat-number" id="statSiswa">-</div>
+                    <div class="stat-number" id="statSiswa">—</div>
                     <div class="stat-label">Jumlah Siswa</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statTahun">-</div>
+                    <div class="stat-number" id="statTahun">—</div>
                     <div class="stat-label">Tahun Lulus</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============ GALERI FOTO ============ -->
+    <!-- ============ GALERI ============ -->
     <section class="section" id="galeri">
-        <h2 class="section-title">Galeri Foto</h2>
+        <div class="section-header reveal">
+            <div class="section-tag">Momen Bersama</div>
+            <h2 class="section-title">Galeri Foto</h2>
+        </div>
         <div class="gallery-grid" id="galleryGrid">
-            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><div class="loading"></div></div>
+            <div class="loading-wrap"><div class="loader"></div></div>
         </div>
     </section>
 
@@ -1115,98 +1202,98 @@
         </div>
     </div>
 
-    <!-- ============ ALBUM KEGIATAN ============ -->
-    <section class="section" id="albums">
-        <h2 class="section-title">Album Kegiatan</h2>
-        <div class="filter-buttons" id="filterButtons"></div>
+    <!-- ============ ALBUMS ============ -->
+    <section class="section section-alt" id="albums">
+        <div class="section-header reveal">
+            <div class="section-tag">Dokumentasi</div>
+            <h2 class="section-title">Album Kegiatan</h2>
+        </div>
+        <div class="filter-bar" id="filterButtons"></div>
         <div class="albums-grid" id="albumsGrid">
-            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><div class="loading"></div></div>
+            <div class="loading-wrap"><div class="loader"></div></div>
         </div>
     </section>
 
     <!-- ============ VIDEO ============ -->
     <section class="section" id="video">
-        <h2 class="section-title">Video Kegiatan</h2>
+        <div class="section-header reveal">
+            <div class="section-tag">Rekaman Kenangan</div>
+            <h2 class="section-title">Video Kegiatan</h2>
+        </div>
         <div class="videos-grid" id="videosGrid">
-            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><div class="loading"></div></div>
+            <div class="loading-wrap"><div class="loader"></div></div>
         </div>
     </section>
 
     <!-- ============ YEARBOOK ============ -->
-    <section class="section" id="yearbook">
-        <h2 class="section-title">Yearbook</h2>
+    <section class="section section-alt" id="yearbook">
+        <div class="section-header reveal">
+            <div class="section-tag">Wajah Angkatan</div>
+            <h2 class="section-title">Yearbook</h2>
+        </div>
         <div class="yearbook-grid" id="yearbookGrid">
-            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><div class="loading"></div></div>
+            <div class="loading-wrap"><div class="loader"></div></div>
         </div>
     </section>
 
     <!-- ============ KOMENTAR ============ -->
     <section class="section" id="komentar">
-        <h2 class="section-title">💬 Sapa Alumni</h2>
-        
-        <form class="comment-form" id="commentForm" onsubmit="submitComment(event)">
+        <div class="section-header reveal">
+            <div class="section-tag">Ruang Alumni</div>
+            <h2 class="section-title">Sapa Sahabatmu</h2>
+            <p class="section-sub">Sudah jadi alumni — tapi persahabatan tak pernah lulus.</p>
+        </div>
+
+        <form class="comment-form reveal" id="commentForm" onsubmit="submitComment(event)">
             <div id="commentStatus" class="comment-status"></div>
-            
             <div class="form-group">
                 <label for="commentName">Nama</label>
-                <input type="text" id="commentName" placeholder="Nama Anda" required>
+                <input type="text" id="commentName" placeholder="Nama kamu" required maxlength="60">
             </div>
-
             <div class="form-group">
                 <label for="commentKelas">Kelas / Angkatan</label>
-                <input type="text" id="commentKelas" placeholder="Misal: 8A / STRAVISCO 2024" required>
+                <input type="text" id="commentKelas" placeholder="Misal: 9A / STRAVISCO 2026" required>
             </div>
-
             <div class="form-group">
                 <label for="commentText">Pesan</label>
-                <textarea id="commentText" placeholder="Tulis pesan Anda (maks 500 karakter)..." maxlength="500" required></textarea>
+                <textarea id="commentText" placeholder="Tulis pesan untuk sahabatmu..." maxlength="500" required></textarea>
                 <div class="char-counter"><span id="charCount">0</span>/500</div>
             </div>
-
             <div class="form-buttons">
-                <button type="reset" class="btn-secondary">Bersihkan</button>
-                <button type="submit" class="btn-primary">Kirim Pesan</button>
+                <button type="reset" class="btn-reset">Bersihkan</button>
+                <button type="submit" class="btn-submit" id="submitBtn">Kirim Pesan</button>
             </div>
         </form>
 
         <div class="comments-list" id="commentsList">
-            <div style="text-align: center; padding: 2rem;"><div class="loading"></div></div>
+            <div class="loading-wrap"><div class="loader"></div></div>
         </div>
     </section>
 
     <!-- ============ FOOTER ============ -->
     <footer>
-        <p class="footer-text"><strong id="footerSchool">SMPIT Ar-Rahmah Makassar</strong></p>
-        <p class="footer-text">Angkatan <strong id="footerYear">STRAVISCO 2025/2026</strong></p>
-        <p class="footer-copyright">&copy; 2024-2026. All rights reserved.</p>
+        <div class="footer-brand" id="footerSchool">SMPIT Ar-Rahmah Makassar</div>
+        <div class="footer-sub">Angkatan <strong id="footerYear">STRAVISCO 2025/2026</strong></div>
+        <div class="footer-copy">&copy; 2024–2026 STRAVISCO. All rights reserved.</div>
     </footer>
 
+    <!-- ============ JAVASCRIPT ============ -->
     <script>
-        // ============ UTILITY FUNCTIONS ============
-
-        // Fetch Google Sheets via gviz
+        // ============ UTILITY ============
         async function fetchSheetData(sheetName) {
             try {
                 const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEETS_ID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
                 const response = await fetch(url);
                 const text = await response.text();
-                
-                // Parse google visualization response
                 const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
-                if (!jsonMatch) throw new Error('Invalid response format');
-                
+                if (!jsonMatch) throw new Error('Invalid response');
                 const data = JSON.parse(jsonMatch[1]);
-                
-                // Extract columns and rows
                 const cols = data.table.cols.map(c => c.label);
                 const rows = data.table.rows.map(r => {
                     const row = {};
-                    cols.forEach((col, i) => {
-                        row[col] = r.c[i]?.v || '';
-                    });
+                    cols.forEach((col, i) => { row[col] = r.c[i]?.v || ''; });
                     return row;
                 });
-                
                 return { cols, rows };
             } catch (error) {
                 console.error(`Error fetching ${sheetName}:`, error);
@@ -1214,491 +1301,368 @@
             }
         }
 
-        // Initialize hamburger menu
+        function escapeHtml(text) {
+            const d = document.createElement('div');
+            d.textContent = text;
+            return d.innerHTML;
+        }
+
+        function getTimeAgo(timestamp) {
+            const s = Math.floor((Date.now() - new Date(timestamp)) / 1000);
+            if (s < 60) return 'baru saja';
+            const m = Math.floor(s / 60);
+            if (m < 60) return `${m} menit lalu`;
+            const h = Math.floor(m / 60);
+            if (h < 24) return `${h} jam lalu`;
+            const d = Math.floor(h / 24);
+            if (d < 30) return `${d} hari lalu`;
+            return new Date(timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        // Navbar
         document.getElementById('hamburger').addEventListener('click', () => {
-            const menu = document.getElementById('navbarMenu');
-            menu.classList.toggle('active');
+            document.getElementById('navbarMenu').classList.toggle('active');
+        });
+        document.querySelectorAll('.navbar-menu a').forEach(a => {
+            a.addEventListener('click', () => document.getElementById('navbarMenu').classList.remove('active'));
         });
 
-        // Close menu when link clicked
-        document.querySelectorAll('.navbar-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navbarMenu').classList.remove('active');
-            });
-        });
-
-        // Character counter for textarea
-        document.getElementById('commentText').addEventListener('input', (e) => {
+        // Char counter
+        document.getElementById('commentText').addEventListener('input', e => {
             document.getElementById('charCount').textContent = e.target.value.length;
         });
 
-        // Scroll reveal with IntersectionObserver
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+        // Scroll reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        function observeReveals() {
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        }
 
-        // Observe all reveal elements
-        setTimeout(() => {
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        }, 100);
-
-        // ============ ABOUT SECTION ============
+        // ============ ABOUT ============
         async function loadAbout() {
             const { rows } = await fetchSheetData('About');
-            if (rows.length === 0) return;
-
-            const data = rows[0];
-            const angkatan = data['angkatan_name'] || CONFIG.NAMA_ANGKATAN;
-            const tagline = data['tagline'] || 'Selamat datang';
-            const siswa = data['jumlah_siswa'] || '-';
-            const tahun = data['tahun_lulus'] || '-';
-            const deskripsi = data['deskripsi'] || '';
-
-            document.getElementById('heroAngkatan').textContent = angkatan;
-            document.getElementById('heroTagline').textContent = tagline;
-            document.getElementById('statSiswa').textContent = siswa;
-            document.getElementById('statTahun').textContent = tahun;
-            document.getElementById('aboutText').innerHTML = `<p>${deskripsi}</p>`;
+            if (!rows.length) return;
+            const d = rows[0];
+            const angkatan = d['angkatan_name'] || CONFIG.NAMA_ANGKATAN;
+            document.getElementById('heroTagline').textContent = d['tagline'] || 'Selamat datang di halaman alumni kami';
+            document.getElementById('statSiswa').textContent = d['jumlah_siswa'] || '—';
+            document.getElementById('statTahun').textContent = d['tahun_lulus'] || '—';
+            document.getElementById('aboutText').innerHTML = `<p>${d['deskripsi'] || ''}</p>`;
             document.getElementById('footerSchool').textContent = CONFIG.NAMA_SEKOLAH;
             document.getElementById('footerYear').textContent = `${angkatan} ${CONFIG.TAHUN}`;
         }
 
-        // ============ GALERI FOTO ============
+        // ============ GALERI ============
         let galleryData = [];
         let currentImageIndex = 0;
 
         async function loadGaleri() {
             const { rows } = await fetchSheetData('Galeri');
             galleryData = rows.filter(r => r.photo_url && r.photo_url.startsWith('http'));
-            
-            const galleryGrid = document.getElementById('galleryGrid');
-            galleryGrid.innerHTML = '';
-
-            galleryData.forEach((item, index) => {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            if (!galleryData.length) { grid.innerHTML = '<div class="empty-state">Belum ada foto</div>'; return; }
+            galleryData.forEach((item, i) => {
+                const wrap = document.createElement('div');
+                wrap.className = 'gallery-item';
                 const img = document.createElement('img');
                 img.src = item.photo_url;
-                img.alt = item.caption || 'Gallery image';
+                img.alt = item.caption || 'Foto';
                 img.className = 'gallery-img loading';
-                img.onclick = () => openLightbox(index);
-
+                img.onclick = () => openLightbox(i);
                 img.onload = () => img.classList.remove('loading');
-                img.onerror = () => img.style.display = 'none';
-
-                galleryGrid.appendChild(img);
+                img.onerror = () => wrap.style.display = 'none';
+                wrap.appendChild(img);
+                grid.appendChild(wrap);
             });
-
-            if (galleryData.length === 0) {
-                galleryGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-light);">Belum ada foto</div>';
-            }
         }
 
-        function openLightbox(index) {
-            currentImageIndex = index;
-            const item = galleryData[index];
+        function openLightbox(i) {
+            currentImageIndex = i;
+            const item = galleryData[i];
             document.getElementById('lightboxImg').src = item.photo_url;
-            document.getElementById('lightboxCaption').innerHTML = `
-                <div>${item.caption || 'Foto'}</div>
-                <div class="lightbox-counter">${index + 1}/${galleryData.length}</div>
-            `;
+            document.getElementById('lightboxCaption').innerHTML = `<div>${item.caption || ''}</div><div class="lightbox-counter">${i+1}/${galleryData.length}</div>`;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
         }
 
-        function nextImage() {
-            currentImageIndex = (currentImageIndex + 1) % galleryData.length;
-            openLightbox(currentImageIndex);
-        }
+        function nextImage() { openLightbox((currentImageIndex + 1) % galleryData.length); }
+        function prevImage() { openLightbox((currentImageIndex - 1 + galleryData.length) % galleryData.length); }
 
-        function prevImage() {
-            currentImageIndex = (currentImageIndex - 1 + galleryData.length) % galleryData.length;
-            openLightbox(currentImageIndex);
-        }
-
-        // Lightbox keyboard controls
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', e => {
             if (!document.getElementById('lightbox').classList.contains('active')) return;
             if (e.key === 'ArrowRight') nextImage();
             if (e.key === 'ArrowLeft') prevImage();
             if (e.key === 'Escape') closeLightbox();
         });
 
-        // ============ ALBUM KEGIATAN ============
+        // ============ ALBUMS ============
         let albumsData = [];
-        let selectedCategory = 'Semua';
 
         async function loadAlbums() {
             const { rows } = await fetchSheetData('Albums');
             albumsData = rows;
-
-            // Get categories
-            const categories = ['Semua', ...new Set(rows.map(r => r.kategori).filter(Boolean))];
-            
-            const filterButtons = document.getElementById('filterButtons');
-            filterButtons.innerHTML = '';
-            categories.forEach(cat => {
+            const cats = ['Semua', ...new Set(rows.map(r => r.kategori).filter(Boolean))];
+            const fb = document.getElementById('filterButtons');
+            fb.innerHTML = '';
+            cats.forEach(cat => {
                 const btn = document.createElement('button');
                 btn.textContent = cat;
                 btn.className = 'filter-btn' + (cat === 'Semua' ? ' active' : '');
                 btn.onclick = () => filterAlbums(cat);
-                filterButtons.appendChild(btn);
+                fb.appendChild(btn);
             });
-
             renderAlbums('Semua');
         }
 
-        function filterAlbums(category) {
-            selectedCategory = category;
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.textContent === category);
-            });
-            renderAlbums(category);
+        function filterAlbums(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.textContent === cat));
+            renderAlbums(cat);
         }
 
-        function renderAlbums(category) {
-            const filtered = category === 'Semua' 
-                ? albumsData 
-                : albumsData.filter(a => a.kategori === category);
-
-            const albumsGrid = document.getElementById('albumsGrid');
-            albumsGrid.innerHTML = '';
-
+        function renderAlbums(cat) {
+            const filtered = cat === 'Semua' ? albumsData : albumsData.filter(a => a.kategori === cat);
+            const grid = document.getElementById('albumsGrid');
+            grid.innerHTML = '';
+            if (!filtered.length) { grid.innerHTML = '<div class="empty-state">Belum ada album</div>'; return; }
             filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'album-card';
-
-                let content = '';
-                if (item.thumbnail_url && item.thumbnail_url.startsWith('http')) {
-                    content = `<img src="${item.thumbnail_url}" alt="${item.album_title}" class="album-thumbnail" onerror="this.parentElement.classList.add('placeholder')">`;
-                } else {
-                    content = '<div class="album-placeholder">📷</div>';
-                }
-
-                card.innerHTML = content + `
-                    <div class="album-overlay">
-                        <div class="album-title">${item.album_title}</div>
-                    </div>
-                `;
-
-                card.onclick = () => {
-                    if (item.album_link) {
-                        window.open(item.album_link, '_blank');
-                    }
-                };
-
-                albumsGrid.appendChild(card);
+                const hasImg = item.thumbnail_url && item.thumbnail_url.startsWith('http');
+                card.innerHTML = (hasImg
+                    ? `<img src="${item.thumbnail_url}" alt="${item.album_title}" class="album-thumbnail" onerror="this.parentElement.innerHTML='<div class=album-placeholder>📷</div>'">`
+                    : '<div class="album-placeholder">📷</div>')
+                    + `<div class="album-overlay"><div class="album-title">${item.album_title}</div></div>`;
+                card.onclick = () => { if (item.album_link) window.open(item.album_link, '_blank'); };
+                grid.appendChild(card);
             });
-
-            if (filtered.length === 0) {
-                albumsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-light);">Belum ada album</div>';
-            }
         }
 
-        // ============ VIDEO ============
+        // ============ VIDEOS ============
         async function loadVideos() {
             const { rows } = await fetchSheetData('Videos');
-            
-            const videosGrid = document.getElementById('videosGrid');
-            videosGrid.innerHTML = '';
-
-            if (rows.length === 0) {
-                videosGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-light);">Belum ada video</div>';
-                return;
-            }
-
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = '';
+            if (!rows.length) { grid.innerHTML = '<div class="empty-state">Belum ada video</div>'; return; }
             rows.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'video-card reveal';
                 card.innerHTML = `
-                    <iframe class="video-frame" src="https://www.youtube.com/embed/${item.video_id}" allowfullscreen></iframe>
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/${item.video_id}" allowfullscreen loading="lazy"></iframe>
                     <div class="video-info">
-                        <div class="video-title">${item.judul}</div>
-                        <div class="video-desc">${item.deskripsi}</div>
-                    </div>
-                `;
-                videosGrid.appendChild(card);
+                        <div class="video-title">${escapeHtml(item.judul || '')}</div>
+                        <div class="video-desc">${escapeHtml(item.deskripsi || '')}</div>
+                    </div>`;
+                grid.appendChild(card);
             });
-
-            observer.disconnect();
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            observeReveals();
         }
 
         // ============ YEARBOOK ============
         async function loadYearbook() {
             const { rows } = await fetchSheetData('Yearbook');
-            
-            const yearbookGrid = document.getElementById('yearbookGrid');
-            yearbookGrid.innerHTML = '';
-
-            if (rows.length === 0) {
-                yearbookGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-light);">Belum ada data siswa</div>';
-                return;
-            }
-
+            const grid = document.getElementById('yearbookGrid');
+            grid.innerHTML = '';
+            if (!rows.length) { grid.innerHTML = '<div class="empty-state">Belum ada data siswa</div>'; return; }
             rows.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'yearbook-card reveal';
-
-                const photoUrl = item.foto_url && item.foto_url.startsWith('http') 
-                    ? item.foto_url 
-                    : 'https://via.placeholder.com/300x300?text=No+Photo';
-
+                const photo = (item.foto_url && item.foto_url.startsWith('http'))
+                    ? item.foto_url
+                    : 'https://via.placeholder.com/300x300/EBF8FF/2AA8E0?text=?';
                 card.innerHTML = `
-                    <img src="${photoUrl}" alt="${item.nama}" class="yearbook-photo" onerror="this.src='https://via.placeholder.com/300x300?text=No+Photo'">
+                    <img src="${photo}" alt="${escapeHtml(item.nama || '')}" class="yearbook-photo" onerror="this.src='https://via.placeholder.com/300x300/EBF8FF/2AA8E0?text=?'">
                     <div class="yearbook-info">
-                        <div class="yearbook-name">${item.nama}</div>
-                        <div class="yearbook-kelas">${item.kelas}</div>
-                        <div class="yearbook-cita">${item.cita_cita}</div>
-                        <div class="yearbook-quote">"${item.quote}"</div>
-                    </div>
-                `;
-                yearbookGrid.appendChild(card);
+                        <div class="yearbook-name">${escapeHtml(item.nama || '')}</div>
+                        <div class="yearbook-kelas">${escapeHtml(item.kelas || '')}</div>
+                        <div class="yearbook-cita">${escapeHtml(item.cita_cita || '')}</div>
+                        <div class="yearbook-quote">"${escapeHtml(item.quote || '')}"</div>
+                    </div>`;
+                grid.appendChild(card);
             });
-
-            observer.disconnect();
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            observeReveals();
         }
 
-        // ============ KOMENTAR ============
+        // ============ COMMENT SYSTEM (FIXED) ============
         let commentsData = [];
 
         async function loadComments() {
             if (CONFIG.GAS_URL) {
-                // Fetch from GAS
                 try {
-                    const response = await fetch(`${CONFIG.GAS_URL}?action=getComments`, {
-                        mode: 'no-cors'
-                    });
-                    // Note: no-cors doesn't allow reading response, so we'll use localStorage as fallback
+                    const response = await fetch(`${CONFIG.GAS_URL}?action=getComments`);
+                    const data = await response.json();
+                    if (data.success && data.comments) {
+                        commentsData = data.comments;
+                        localStorage.setItem('alumni_comments', JSON.stringify(commentsData));
+                        renderComments();
+                        return;
+                    }
                 } catch (e) {
-                    console.log('GAS fetch failed, using localStorage');
+                    console.warn('GAS fetch failed, fallback localStorage:', e);
                 }
             }
-
-            // Load from localStorage
             commentsData = JSON.parse(localStorage.getItem('alumni_comments') || '[]');
             renderComments();
         }
 
         function renderComments() {
-            const commentsList = document.getElementById('commentsList');
-            
-            if (commentsData.length === 0) {
-                commentsList.innerHTML = '<div class="no-comments">Jadilah yang pertama memberikan salam! 👋</div>';
+            const list = document.getElementById('commentsList');
+            if (!commentsData.length) {
+                list.innerHTML = '<div class="no-comments">Jadilah yang pertama menyapa! 👋</div>';
                 return;
             }
-
-            commentsList.innerHTML = '';
-
-            commentsData.forEach(comment => {
-                const initials = (comment.nama || 'A')
-                    .split(' ')
-                    .map(n => n[0])
-                    .join('')
-                    .toUpperCase()
-                    .slice(0, 2);
-
-                const timeAgo = getTimeAgo(comment.timestamp);
-
-                const commentEl = document.createElement('div');
-                commentEl.className = 'comment-item';
+            list.innerHTML = '';
+            commentsData.forEach(c => {
+                const initials = (c.nama || 'A').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 
                 let repliesHtml = '';
-                if (comment.replies && comment.replies.length > 0) {
-                    repliesHtml = `
-                        <div class="replies">
-                            ${comment.replies.map(reply => `
-                                <div class="reply-item">
-                                    <div class="reply-header">
-                                        <span class="reply-name">${reply.nama}</span>
-                                        <span class="reply-time">${getTimeAgo(reply.timestamp)}</span>
-                                    </div>
-                                    <div class="reply-text">${escapeHtml(reply.pesan)}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
+                if (c.replies && c.replies.length) {
+                    repliesHtml = `<div class="replies">${c.replies.map(r => `
+                        <div class="reply-item">
+                            <div class="reply-header">
+                                <span class="reply-name">${escapeHtml(r.nama)}</span>
+                                <span class="reply-time">${getTimeAgo(r.timestamp)}</span>
+                            </div>
+                            <div class="reply-text">${escapeHtml(r.pesan)}</div>
+                        </div>`).join('')}</div>`;
                 }
 
-                commentEl.innerHTML = `
+                const el = document.createElement('div');
+                el.className = 'comment-item';
+                el.innerHTML = `
                     <div class="comment-header">
                         <div class="comment-avatar">${initials}</div>
                         <div class="comment-meta">
-                            <div class="comment-name">${escapeHtml(comment.nama)}</div>
-                            <div class="comment-kelas">${escapeHtml(comment.kelas)}</div>
-                            <div class="comment-time">${timeAgo}</div>
+                            <div class="comment-name">${escapeHtml(c.nama)}</div>
+                            <div class="comment-kelas">${escapeHtml(c.kelas)}</div>
+                            <div class="comment-time">${getTimeAgo(c.timestamp)}</div>
                         </div>
                     </div>
-                    <div class="comment-text">${escapeHtml(comment.pesan)}</div>
-                    <button class="reply-btn" onclick="toggleReplyForm('${comment.id}')">Balas</button>
-                    <div class="reply-form" id="reply-form-${comment.id}">
+                    <div class="comment-text">${escapeHtml(c.pesan)}</div>
+                    <button class="reply-btn" onclick="toggleReplyForm('${c.id}')">↩ Balas</button>
+                    <div class="reply-form" id="reply-form-${c.id}">
                         <div class="reply-form-group">
-                            <input type="text" placeholder="Nama Anda" class="reply-name-input" maxlength="50">
+                            <input type="text" placeholder="Nama kamu" class="reply-name-input" maxlength="50">
                         </div>
                         <div class="reply-form-group">
-                            <textarea placeholder="Balas pesan..." class="reply-text-input" maxlength="300" rows="2"></textarea>
+                            <textarea placeholder="Tulis balasan..." class="reply-text-input" maxlength="300" rows="2"></textarea>
                         </div>
                         <div class="reply-form-buttons">
-                            <button class="reply-submit" onclick="submitReply('${comment.id}')">Kirim</button>
-                            <button class="reply-cancel" onclick="toggleReplyForm('${comment.id}')">Batal</button>
+                            <button class="reply-submit" onclick="submitReply('${c.id}')">Kirim</button>
+                            <button class="reply-cancel" onclick="toggleReplyForm('${c.id}')">Batal</button>
                         </div>
                     </div>
-                    ${repliesHtml}
-                `;
-
-                commentsList.appendChild(commentEl);
+                    ${repliesHtml}`;
+                list.appendChild(el);
             });
         }
 
-        function toggleReplyForm(commentId) {
-            const form = document.getElementById(`reply-form-${commentId}`);
-            form.classList.toggle('active');
-            if (form.classList.contains('active')) {
-                form.querySelector('.reply-name-input').focus();
-            }
+        function toggleReplyForm(id) {
+            const f = document.getElementById(`reply-form-${id}`);
+            f.classList.toggle('active');
+            if (f.classList.contains('active')) f.querySelector('.reply-name-input').focus();
         }
 
-        function submitComment(e) {
+        async function submitComment(e) {
             e.preventDefault();
-
             const nama = document.getElementById('commentName').value.trim();
             const kelas = document.getElementById('commentKelas').value.trim();
             const pesan = document.getElementById('commentText').value.trim();
-
             if (!nama || !kelas || !pesan) return;
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Mengirim...';
 
             const comment = {
                 id: Date.now().toString(),
-                nama,
-                kelas,
-                pesan,
+                nama, kelas, pesan,
                 timestamp: new Date().toISOString(),
                 replies: []
             };
 
-            // Send to GAS if configured
             if (CONFIG.GAS_URL) {
-                sendToGAS(comment);
+                try {
+                    const result = await sendToGAS(comment);
+                    showCommentStatus(result?.success ? 'Pesan terkirim! 🎉' : 'Tersimpan lokal, sinkronisasi segera.', 'success');
+                } catch { showCommentStatus('Tersimpan lokal, sinkronisasi segera.', 'success'); }
+            } else {
+                showCommentStatus('Pesan terkirim! 🎉', 'success');
             }
 
-            // Save to localStorage
             commentsData.unshift(comment);
             localStorage.setItem('alumni_comments', JSON.stringify(commentsData));
+            renderComments();
 
-            // Show success message
-            showCommentStatus('Pesan terkirim! 🎉', 'success');
-
-            // Reset form
             document.getElementById('commentForm').reset();
             document.getElementById('charCount').textContent = '0';
+            btn.disabled = false;
+            btn.textContent = 'Kirim Pesan';
 
-            // Reload after 2 seconds
-            setTimeout(() => {
-                renderComments();
-                showCommentStatus('', '');
-            }, 2000);
+            setTimeout(() => { showCommentStatus('', ''); loadComments(); }, 3000);
         }
 
-        function submitReply(commentId) {
+        async function submitReply(commentId) {
             const form = document.getElementById(`reply-form-${commentId}`);
             const nama = form.querySelector('.reply-name-input').value.trim();
             const pesan = form.querySelector('.reply-text-input').value.trim();
-
             if (!nama || !pesan) return;
 
             const comment = commentsData.find(c => c.id === commentId);
             if (!comment) return;
-
             if (!comment.replies) comment.replies = [];
 
-            const reply = {
-                id: Date.now().toString(),
-                nama,
-                pesan,
-                timestamp: new Date().toISOString()
-            };
-
+            const reply = { id: Date.now().toString(), nama, pesan, timestamp: new Date().toISOString() };
             comment.replies.push(reply);
             localStorage.setItem('alumni_comments', JSON.stringify(commentsData));
-
-            // Send to GAS if configured
-            if (CONFIG.GAS_URL) {
-                sendReplyToGAS(reply, commentId);
-            }
-
             renderComments();
-            form.classList.remove('active');
+
+            if (CONFIG.GAS_URL) {
+                await sendReplyToGAS(reply, commentId);
+                setTimeout(loadComments, 2000);
+            }
         }
 
-        function sendToGAS(comment) {
-            if (!CONFIG.GAS_URL) return;
-            
+        async function sendToGAS(comment) {
+            if (!CONFIG.GAS_URL) return null;
             const url = new URL(CONFIG.GAS_URL);
             url.searchParams.append('action', 'addComment');
-            url.searchParams.append('id', comment.id);
             url.searchParams.append('nama', comment.nama);
             url.searchParams.append('kelas', comment.kelas);
             url.searchParams.append('pesan', comment.pesan);
             url.searchParams.append('timestamp', comment.timestamp);
-
-            fetch(url.toString(), { mode: 'no-cors' }).catch(e => console.log('GAS send failed'));
+            try {
+                const r = await fetch(url.toString());
+                return await r.json();
+            } catch (e) { console.error('GAS send:', e); return null; }
         }
 
-        function sendReplyToGAS(reply, commentId) {
-            if (!CONFIG.GAS_URL) return;
-
+        async function sendReplyToGAS(reply, commentId) {
+            if (!CONFIG.GAS_URL) return null;
             const url = new URL(CONFIG.GAS_URL);
             url.searchParams.append('action', 'addReply');
-            url.searchParams.append('id', reply.id);
             url.searchParams.append('commentId', commentId);
             url.searchParams.append('nama', reply.nama);
             url.searchParams.append('pesan', reply.pesan);
             url.searchParams.append('timestamp', reply.timestamp);
-
-            fetch(url.toString(), { mode: 'no-cors' }).catch(e => console.log('GAS send failed'));
+            try {
+                const r = await fetch(url.toString());
+                return await r.json();
+            } catch (e) { console.error('GAS reply:', e); return null; }
         }
 
-        function showCommentStatus(message, type) {
-            const statusEl = document.getElementById('commentStatus');
-            if (message) {
-                statusEl.textContent = message;
-                statusEl.className = `comment-status show ${type}`;
-            } else {
-                statusEl.className = 'comment-status';
-            }
-        }
-
-        function getTimeAgo(timestamp) {
-            const date = new Date(timestamp);
-            const now = new Date();
-            const seconds = Math.floor((now - date) / 1000);
-
-            if (seconds < 60) return 'baru saja';
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes}m lalu`;
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours}h lalu`;
-            const days = Math.floor(hours / 24);
-            return `${days}d lalu`;
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        function showCommentStatus(msg, type) {
+            const el = document.getElementById('commentStatus');
+            if (msg) { el.textContent = msg; el.className = `comment-status show ${type}`; }
+            else { el.className = 'comment-status'; }
         }
 
         // ============ INIT ============
@@ -1709,21 +1673,19 @@
             await loadVideos();
             await loadYearbook();
             await loadComments();
+            observeReveals();
         }
 
-        // Start loading when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initPage);
         } else {
             initPage();
         }
 
-        // Auto-reload comments every 5 seconds
+        // Auto-refresh comments every 30s when tab is visible
         setInterval(() => {
-            if (!document.getElementById('commentForm').style.display) {
-                loadComments();
-            }
-        }, 5000);
+            if (document.visibilityState === 'visible') loadComments();
+        }, 30000);
     </script>
 </body>
 </html>
