@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STRAVISCO — Alumni SMPIT Ar-Rahmah Makassar</title>
     
-    <!-- Ar-Rahmah Standard Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
@@ -1108,22 +1107,66 @@
             color: var(--text-muted);
             font-size: 0.95rem;
         }
+
+        /* FLOATING MUSIC PLAYER */
+        .floating-music {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 1500;
+            background: var(--white);
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+        .floating-music:hover { transform: scale(1.03); }
+        .music-btn {
+            background: var(--primary);
+            border: none;
+            color: var(--white);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .music-btn:hover { background: var(--dark); }
+        .music-text {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ============ CONFIG ============ -->
     <script>
         const CONFIG = {
             NAMA_SEKOLAH: 'SMPIT Ar-Rahmah Makassar',
             NAMA_ANGKATAN: 'STRAVISCO',
             TAHUN: '2025/2026',
             SHEETS_ID: '1A2nmMEU77L5qB3Yw6kqdyvEc2AP52LforJfZ3en-vGs',
-            GAS_URL: 'https://script.google.com/macros/s/AKfycbyJXLRWaJLqedNxr1HMBa92AkPgKWgydstm1axhFlEwObpqKrPFK3rxSk32OtvXp-2x/exec'
+            // Ganti URL di bawah dengan tautan Web App Apps Script Anda yang baru dideploy
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbx5PZ84HTrmCSAWDIzAP-iKnEaZENPIHlRJVx-_uvBK43mjjzcfp_JRGys-7Ph_IMzV/exec'
         };
     </script>
 
-    <!-- ============ NAVBAR ============ -->
+    <div class="floating-music" id="musicContainer">
+        <button class="music-btn" id="playMusicBtn">▶</button>
+        <span class="music-text" id="musicStatusText">Putar Musik Memori 🎵</span>
+        <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    </div>
+
     <nav class="navbar">
         <div class="navbar-content">
             <a href="#" class="navbar-logo">Alumni <span>STRAVISCO</span></a>
@@ -1141,7 +1184,6 @@
         </div>
     </nav>
 
-    <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
         <div class="hero-content">
             <div class="hero-badge">SMPIT Ar-Rahmah Makassar</div>
@@ -1157,7 +1199,6 @@
         </div>
     </section>
 
-    <!-- ============ ABOUT ============ -->
     <section class="section section-alt" id="about">
         <div class="section-header reveal">
             <div class="section-tag">Mengenal Kami</div>
@@ -1180,7 +1221,6 @@
         </div>
     </section>
 
-    <!-- ============ GALERI ============ -->
     <section class="section" id="galeri">
         <div class="section-header reveal">
             <div class="section-tag">Momen Bersama</div>
@@ -1191,7 +1231,6 @@
         </div>
     </section>
 
-    <!-- ============ LIGHTBOX ============ -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <img src="" alt="" class="lightbox-img" id="lightboxImg">
@@ -1202,7 +1241,6 @@
         </div>
     </div>
 
-    <!-- ============ ALBUMS ============ -->
     <section class="section section-alt" id="albums">
         <div class="section-header reveal">
             <div class="section-tag">Dokumentasi</div>
@@ -1214,7 +1252,6 @@
         </div>
     </section>
 
-    <!-- ============ VIDEO ============ -->
     <section class="section" id="video">
         <div class="section-header reveal">
             <div class="section-tag">Rekaman Kenangan</div>
@@ -1225,7 +1262,6 @@
         </div>
     </section>
 
-    <!-- ============ YEARBOOK ============ -->
     <section class="section section-alt" id="yearbook">
         <div class="section-header reveal">
             <div class="section-tag">Wajah Angkatan</div>
@@ -1236,7 +1272,6 @@
         </div>
     </section>
 
-    <!-- ============ KOMENTAR ============ -->
     <section class="section" id="komentar">
         <div class="section-header reveal">
             <div class="section-tag">Ruang Alumni</div>
@@ -1270,14 +1305,12 @@
         </div>
     </section>
 
-    <!-- ============ FOOTER ============ -->
     <footer>
         <div class="footer-brand" id="footerSchool">SMPIT Ar-Rahmah Makassar</div>
         <div class="footer-sub">Angkatan <strong id="footerYear">STRAVISCO 2025/2026</strong></div>
         <div class="footer-copy">&copy; 2024–2026 STRAVISCO. All rights reserved.</div>
     </footer>
 
-    <!-- ============ JAVASCRIPT ============ -->
     <script>
         // ============ UTILITY ============
         async function fetchSheetData(sheetName) {
@@ -1330,6 +1363,25 @@
         // Char counter
         document.getElementById('commentText').addEventListener('input', e => {
             document.getElementById('charCount').textContent = e.target.value.length;
+        });
+
+        // Music Player Controller
+        const audio = document.getElementById('bgMusic');
+        const playMusicBtn = document.getElementById('playMusicBtn');
+        const musicStatusText = document.getElementById('musicStatusText');
+        
+        playMusicBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(e => console.log("Audio play blocked by browser:", e));
+                playMusicBtn.textContent = '⏸';
+                musicStatusText.textContent = 'Memutar Musik Kenangan...';
+                playMusicBtn.style.background = 'var(--accent)';
+            } else {
+                audio.pause();
+                playMusicBtn.textContent = '▶';
+                musicStatusText.textContent = 'Musik Dijeda';
+                playMusicBtn.style.background = 'var(--primary)';
+            }
         });
 
         // Scroll reveal
@@ -1404,7 +1456,7 @@
             if (e.key === 'Escape') closeLightbox();
         });
 
-        // ============ ALBUMS ============
+        // ============ ALBUMS (SMOOTH ANIMATION) ============
         let albumsData = [];
 
         async function loadAlbums() {
@@ -1431,19 +1483,39 @@
         function renderAlbums(cat) {
             const filtered = cat === 'Semua' ? albumsData : albumsData.filter(a => a.kategori === cat);
             const grid = document.getElementById('albumsGrid');
-            grid.innerHTML = '';
-            if (!filtered.length) { grid.innerHTML = '<div class="empty-state">Belum ada album</div>'; return; }
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'album-card';
-                const hasImg = item.thumbnail_url && item.thumbnail_url.startsWith('http');
-                card.innerHTML = (hasImg
-                    ? `<img src="${item.thumbnail_url}" alt="${item.album_title}" class="album-thumbnail" onerror="this.parentElement.innerHTML='<div class=album-placeholder>📷</div>'">`
-                    : '<div class="album-placeholder">📷</div>')
-                    + `<div class="album-overlay"><div class="album-title">${item.album_title}</div></div>`;
-                card.onclick = () => { if (item.album_link) window.open(item.album_link, '_blank'); };
-                grid.appendChild(card);
-            });
+            
+            grid.style.opacity = 0;
+            grid.style.transition = 'opacity 0.25s ease';
+            
+            setTimeout(() => {
+                grid.innerHTML = '';
+                if (!filtered.length) { 
+                    grid.innerHTML = '<div class="empty-state">Belum ada album</div>'; 
+                    grid.style.opacity = 1;
+                    return; 
+                }
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'album-card';
+                    card.style.opacity = 0;
+                    card.style.transform = 'translateY(10px)';
+                    card.style.transition = 'all 0.3s ease';
+
+                    const hasImg = item.thumbnail_url && item.thumbnail_url.startsWith('http');
+                    card.innerHTML = (hasImg
+                        ? `<img src="${item.thumbnail_url}" alt="${item.album_title}" class="album-thumbnail" onerror="this.parentElement.innerHTML='<div class=album-placeholder>📷</div>'">`
+                        : '<div class="album-placeholder">📷</div>')
+                        + `<div class="album-overlay"><div class="album-title">${item.album_title}</div></div>`;
+                    card.onclick = () => { if (item.album_link) window.open(item.album_link, '_blank'); };
+                    grid.appendChild(card);
+
+                    setTimeout(() => {
+                        card.style.opacity = 1;
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                });
+                grid.style.opacity = 1;
+            }, 250);
         }
 
         // ============ VIDEOS ============
@@ -1491,7 +1563,7 @@
             observeReveals();
         }
 
-        // ============ COMMENT SYSTEM (FIXED) ============
+        // ============ COMMENT SYSTEM (OPTIMIZED) ============
         let commentsData = [];
 
         async function loadComments() {
@@ -1589,25 +1661,38 @@
                 replies: []
             };
 
+            let sendSuccess = false;
             if (CONFIG.GAS_URL) {
                 try {
                     const result = await sendToGAS(comment);
-                    showCommentStatus(result?.success ? 'Pesan terkirim! 🎉' : 'Tersimpan lokal, sinkronisasi segera.', 'success');
-                } catch { showCommentStatus('Tersimpan lokal, sinkronisasi segera.', 'success'); }
+                    if (result && result.success) {
+                        showCommentStatus('Pesan terkirim ke database! 🎉', 'success');
+                        sendSuccess = true;
+                    } else {
+                        showCommentStatus('Tersimpan lokal, sinkronisasi segera.', 'success');
+                    }
+                } catch { 
+                    showCommentStatus('Tersimpan lokal, sinkronisasi segera.', 'success'); 
+                }
             } else {
                 showCommentStatus('Pesan terkirim! 🎉', 'success');
             }
 
-            commentsData.unshift(comment);
-            localStorage.setItem('alumni_comments', JSON.stringify(commentsData));
-            renderComments();
+            if (!sendSuccess) {
+                commentsData.unshift(comment);
+                localStorage.setItem('alumni_comments', JSON.stringify(commentsData));
+                renderComments();
+            }
 
             document.getElementById('commentForm').reset();
             document.getElementById('charCount').textContent = '0';
             btn.disabled = false;
             btn.textContent = 'Kirim Pesan';
 
-            setTimeout(() => { showCommentStatus('', ''); loadComments(); }, 3000);
+            setTimeout(() => { 
+                showCommentStatus('', ''); 
+                loadComments(); 
+            }, 2000);
         }
 
         async function submitReply(commentId) {
@@ -1621,12 +1706,18 @@
             if (!comment.replies) comment.replies = [];
 
             const reply = { id: Date.now().toString(), nama, pesan, timestamp: new Date().toISOString() };
+            
+            // Masukkan sementara ke lokal agar instan tampil
             comment.replies.push(reply);
             localStorage.setItem('alumni_comments', JSON.stringify(commentsData));
             renderComments();
 
             if (CONFIG.GAS_URL) {
-                await sendReplyToGAS(reply, commentId);
+                try {
+                    await sendReplyToGAS(reply, commentId);
+                } catch(e) {
+                    console.error("Gagal mengirim balasan ke server:", e);
+                }
                 setTimeout(loadComments, 2000);
             }
         }
