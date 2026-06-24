@@ -194,6 +194,28 @@
             to { transform: translate(60px, 35px); }
         }
 
+        /* ============ SPRING ANIMATION EFFECTS ============ */
+        .spring-petal {
+            position: absolute;
+            background: #ffb7c5; /* Sakura Pink */
+            border-radius: 150% 0 150% 150%;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 1;
+            animation: sakuraFall linear infinite;
+        }
+
+        @keyframes sakuraFall {
+            0% {
+                transform: translateY(-20px) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(150px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         .hero-content {
             position: relative;
             z-index: 2;
@@ -439,6 +461,57 @@
 
         .gallery-img.loading {
             background: var(--light);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .gallery-item.img-error {
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+        
+        .yearbook-photo-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            background: var(--light);
+        }
+        
+        .yearbook-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+        
+        .yearbook-photo.placeholder-img {
+            background: var(--light);
+        }
+        
+        .video-frame-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            background: #000;
+        }
+        
+        .video-frame-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -1153,11 +1226,12 @@
     <script>
         const CONFIG = {
             NAMA_SEKOLAH: 'SMPIT Ar-Rahmah Makassar',
-            NAMA_ANGKATAN: 'STRAVISCO',
+            NAMA_ANGKATAN: 'STRAVISCO', 
             TAHUN: '2025/2026',
-            SHEETS_ID: '1A2nmMEU77L5qB3Yw6kqdyvEc2AP52LforJfZ3en-vGs',
-            // Ganti URL di bawah dengan tautan Web App Apps Script Anda yang baru dideploy
-            GAS_URL: 'https://script.google.com/macros/s/AKfycbx5PZ84HTrmCSAWDIzAP-iKnEaZENPIHlRJVx-_uvBK43mjjzcfp_JRGys-7Ph_IMzV/exec'
+            // Sambungan otomatis ke Google Sheet Baru Anda
+            SHEETS_ID: '1U7xKzeN_-ScTHoEEmptnq62yffq3pfWKe9ynhliwNH0',
+            // SILAKAN GANTI URL DI BAWAH INI SETELAH MENDEPLOI APPS SCRIPT DI SEBELAH
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbxtJ-YO-BOUVoq1KoS4dHHnQADD1Ary4rVrQPJT_JQF6X59VZPN7VblSodqX1sSGtTYAg/exec' 
         };
     </script>
 
@@ -1321,7 +1395,7 @@
                 const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
                 if (!jsonMatch) throw new Error('Invalid response');
                 const data = JSON.parse(jsonMatch[1]);
-                const cols = data.table.cols.map(c => c.label);
+                const cols = data.table.cols.map(c => c.label || c.id);
                 const rows = data.table.rows.map(r => {
                     const row = {};
                     cols.forEach((col, i) => { row[col] = r.c[i]?.v || ''; });
@@ -1350,6 +1424,23 @@
             const d = Math.floor(h / 24);
             if (d < 30) return `${d} hari lalu`;
             return new Date(timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        // SPRING EFFECT ANIMATION FUNCTION
+        function createSpringPetals() {
+            const hero = document.getElementById('hero');
+            const petalCount = 15;
+            for(let i=0; i<petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'spring-petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.top = Math.random() * -20 + 'px';
+                petal.style.width = Math.random() * 8 + 8 + 'px';
+                petal.style.height = Math.random() * 8 + 12 + 'px';
+                petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                hero.appendChild(petal);
+            }
         }
 
         // Navbar
@@ -1413,23 +1504,61 @@
 
         async function loadGaleri() {
             const { rows } = await fetchSheetData('Galeri');
-            galleryData = rows.filter(r => r.photo_url && r.photo_url.startsWith('http'));
+            galleryData = rows.filter(r => r.photo_url && r.photo_url.trim().length > 0);
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
-            if (!galleryData.length) { grid.innerHTML = '<div class="empty-state">Belum ada foto</div>'; return; }
+            
+            if (!galleryData.length) { 
+                grid.innerHTML = '<div class="empty-state">📸 Belum ada foto - Silakan tambahkan foto ke Google Sheet</div>'; 
+                return; 
+            }
+            
+            let validImages = 0;
             galleryData.forEach((item, i) => {
                 const wrap = document.createElement('div');
                 wrap.className = 'gallery-item';
+                wrap.id = `gallery-item-${i}`;
+                
                 const img = document.createElement('img');
-                img.src = item.photo_url;
-                img.alt = item.caption || 'Foto';
+                
+                // Validasi dan perbaiki URL
+                let photoUrl = item.photo_url.trim();
+                
+                // Jika URL imgur tidak lengkap, tambahkan ekstensi
+                if (photoUrl.includes('imgur.com') && !photoUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                    if (!photoUrl.endsWith('/')) photoUrl += '/';
+                    photoUrl = photoUrl.replace('//', '/').replace(':/', '://'); // fix double slash
+                    if (!photoUrl.includes('.')) photoUrl += 'jpg';
+                }
+                
+                img.src = photoUrl;
+                img.alt = item.caption || `Foto ${i+1}`;
                 img.className = 'gallery-img loading';
+                img.loading = 'lazy';
                 img.onclick = () => openLightbox(i);
-                img.onload = () => img.classList.remove('loading');
-                img.onerror = () => wrap.style.display = 'none';
+                
+                img.onload = () => {
+                    img.classList.remove('loading');
+                    validImages++;
+                };
+                
+                img.onerror = () => {
+                    console.warn(`Gagal memuat foto: ${photoUrl}`);
+                    wrap.innerHTML = `
+                        <div style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; height: 200px; border-radius: 8px;">
+                            <div style="text-align: center; color: #999;">
+                                <div style="font-size: 30px; margin-bottom: 8px;">❌</div>
+                                <div style="font-size: 12px;">Gagal memuat</div>
+                            </div>
+                        </div>
+                    `;
+                };
+                
                 wrap.appendChild(img);
                 grid.appendChild(wrap);
             });
+            
+            console.log(`Galeri dimuat: ${validImages}/${galleryData.length} foto berhasil`);
         }
 
         function openLightbox(i) {
@@ -1475,6 +1604,85 @@
             renderAlbums('Semua');
         }
 
+        // ============ URL UTILITY FUNCTIONS ============
+        
+        /**
+         * Fix broken/incomplete imgur URLs
+         * https://i.imgur.co → https://i.imgur.com/defaultm.jpg
+         * https://i.imgur.com/abc123 → https://i.imgur.com/abc123m.jpg
+         */
+        function fixImgurUrl(url) {
+            if (!url) return null;
+            
+            url = url.trim();
+            
+            // Handle incomplete imgur URLs
+            if (url.includes('imgur')) {
+                // Fix: https://i.imgur.co (incomplete)
+                if (url === 'https://i.imgur.co' || url === 'https://i.imgur.co/') {
+                    console.warn('Imgur URL incomplete: ', url);
+                    return null; // Can't fix without ID
+                }
+                
+                // Fix: https://i.imgur.com/abc123 (missing size suffix & extension)
+                if (url.startsWith('https://i.imgur.com/') && !url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                    if (!url.includes('m') && !url.includes('t') && !url.includes('s')) {
+                        url = url + 'm.jpg'; // Add medium size + jpg extension
+                    }
+                }
+                
+                // Fix: https://imgur.com (should be i.imgur.com)
+                if (url.startsWith('https://imgur.com/') && !url.startsWith('https://i.imgur.com/')) {
+                    url = url.replace('https://imgur.com/', 'https://i.imgur.com/');
+                    if (!url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                        url = url + 'm.jpg';
+                    }
+                }
+            }
+            
+            // Validate final URL
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                console.warn('Invalid URL format:', url);
+                return null;
+            }
+            
+            return url;
+        }
+        
+        /**
+         * Validate image URL accessibility
+         */
+        function validateImageUrl(url) {
+            if (!url) return false;
+            
+            try {
+                new URL(url);
+                
+                // Check if it's a known image domain
+                const validDomains = [
+                    'i.imgur.com',
+                    'imgur.com',
+                    'drive.google.com',
+                    'lh3.googleusercontent.com',
+                    'photos.google.com',
+                    'cloudinary.com',
+                    'cdn',
+                    'static',
+                    'images'
+                ];
+                
+                const urlObj = new URL(url);
+                const isValidDomain = validDomains.some(domain => 
+                    urlObj.hostname.includes(domain)
+                );
+                
+                return isValidDomain;
+            } catch (err) {
+                console.warn('Invalid URL:', url, err);
+                return false;
+            }
+        }
+
         function filterAlbums(cat) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.textContent === cat));
             renderAlbums(cat);
@@ -1494,6 +1702,8 @@
                     grid.style.opacity = 1;
                     return; 
                 }
+                
+                let validAlbums = 0;
                 filtered.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'album-card';
@@ -1501,12 +1711,56 @@
                     card.style.transform = 'translateY(10px)';
                     card.style.transition = 'all 0.3s ease';
 
-                    const hasImg = item.thumbnail_url && item.thumbnail_url.startsWith('http');
-                    card.innerHTML = (hasImg
-                        ? `<img src="${item.thumbnail_url}" alt="${item.album_title}" class="album-thumbnail" onerror="this.parentElement.innerHTML='<div class=album-placeholder>📷</div>'">`
-                        : '<div class="album-placeholder">📷</div>')
-                        + `<div class="album-overlay"><div class="album-title">${item.album_title}</div></div>`;
-                    card.onclick = () => { if (item.album_link) window.open(item.album_link, '_blank'); };
+                    // Fix & validate thumbnail URL
+                    let thumbnailUrl = item.thumbnail_url ? item.thumbnail_url.trim() : null;
+                    let hasImg = false;
+                    let fixedUrl = null;
+                    
+                    if (thumbnailUrl) {
+                        // Try to fix incomplete/broken URLs
+                        fixedUrl = fixImgurUrl(thumbnailUrl);
+                        
+                        // Validate the URL
+                        if (fixedUrl && validateImageUrl(fixedUrl)) {
+                            hasImg = true;
+                        } else {
+                            console.warn(`Invalid album thumbnail URL: ${thumbnailUrl}`);
+                        }
+                    }
+
+                    if (hasImg) {
+                        card.innerHTML = `
+                            <div class="album-img-wrapper">
+                                <img 
+                                    src="${fixedUrl}" 
+                                    alt="${escapeHtml(item.album_title)}" 
+                                    class="album-thumbnail loading"
+                                    loading="lazy"
+                                    onerror="this.closest('.album-card').classList.add('img-error'); this.parentElement.innerHTML='<div class=album-placeholder>📷 Failed</div>'">
+                            </div>
+                            <div class="album-overlay">
+                                <div class="album-title">${escapeHtml(item.album_title)}</div>
+                            </div>`;
+                        validAlbums++;
+                    } else {
+                        card.innerHTML = `
+                            <div class="album-placeholder">📷</div>
+                            <div class="album-overlay">
+                                <div class="album-title">${escapeHtml(item.album_title)}</div>
+                            </div>`;
+                    }
+                    
+                    card.onclick = () => { 
+                        if (item.album_link) {
+                            const albumLink = item.album_link.trim();
+                            if (albumLink.startsWith('http')) {
+                                window.open(albumLink, '_blank'); 
+                            } else {
+                                console.warn('Invalid album link:', albumLink);
+                            }
+                        }
+                    };
+                    
                     grid.appendChild(card);
 
                     setTimeout(() => {
@@ -1514,6 +1768,8 @@
                         card.style.transform = 'translateY(0)';
                     }, 50);
                 });
+                
+                console.log(`Albums dimuat: ${validAlbums}/${filtered.length} album berhasil`);
                 grid.style.opacity = 1;
             }, 250);
         }
@@ -1523,47 +1779,120 @@
             const { rows } = await fetchSheetData('Videos');
             const grid = document.getElementById('videosGrid');
             grid.innerHTML = '';
-            if (!rows.length) { grid.innerHTML = '<div class="empty-state">Belum ada video</div>'; return; }
-            rows.forEach(item => {
+            
+            // Filter hanya video dengan video_id valid
+            const validVideos = rows.filter(item => {
+                const videoId = item.video_id || '';
+                return videoId.trim().length > 0;
+            });
+            
+            if (!validVideos.length) { 
+                grid.innerHTML = '<div class="empty-state">🎬 Belum ada video - Silakan tambahkan video_id YouTube ke Google Sheet</div>'; 
+                return; 
+            }
+            
+            let loadedCount = 0;
+            validVideos.forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'video-card reveal';
-                card.innerHTML = `
-                    <iframe class="video-frame" src="https://www.youtube.com/embed/${item.video_id}" allowfullscreen loading="lazy"></iframe>
-                    <div class="video-info">
-                        <div class="video-title">${escapeHtml(item.judul || '')}</div>
-                        <div class="video-desc">${escapeHtml(item.deskripsi || '')}</div>
-                    </div>`;
+                card.id = `video-card-${index}`;
+                
+                const videoId = item.video_id.trim();
+                
+                // Validasi format video_id (11 karakter untuk YouTube)
+                const isValidId = /^[a-zA-Z0-9_-]{11}$/.test(videoId);
+                
+                if (!isValidId) {
+                    console.warn(`Video ID tidak valid: ${videoId}`);
+                    card.innerHTML = `
+                        <div style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; height: 300px; border-radius: 8px;">
+                            <div style="text-align: center; color: #999;">
+                                <div style="font-size: 30px; margin-bottom: 8px;">❌</div>
+                                <div style="font-size: 12px;">Video ID tidak valid</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="video-frame-wrapper">
+                            <iframe 
+                                class="video-frame" 
+                                src="https://www.youtube.com/embed/${videoId}?rel=0" 
+                                allowfullscreen 
+                                loading="lazy"
+                                title="${escapeHtml(item.judul || 'Video')}"
+                                onerror="console.warn('Video embed gagal: ${videoId}')"
+                            ></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${escapeHtml(item.judul || 'Tanpa Judul')}</div>
+                            <div class="video-desc">${escapeHtml(item.deskripsi || '')}</div>
+                        </div>`;
+                    loadedCount++;
+                }
                 grid.appendChild(card);
             });
+            
+            console.log(`Video dimuat: ${loadedCount}/${validVideos.length} video berhasil`);
             observeReveals();
         }
 
-        // ============ YEARBOOK ============
         async function loadYearbook() {
             const { rows } = await fetchSheetData('Yearbook');
             const grid = document.getElementById('yearbookGrid');
             grid.innerHTML = '';
-            if (!rows.length) { grid.innerHTML = '<div class="empty-state">Belum ada data siswa</div>'; return; }
+            if (!rows.length) { 
+                grid.innerHTML = '<div class="empty-state">👥 Belum ada data siswa - Silakan tambahkan data ke Google Sheet</div>'; 
+                return; 
+            }
+            
+            const placeholderUrl = 'https://via.placeholder.com/300x300/EBF8FF/2AA8E0?text=?';
+            let validCards = 0;
+            
             rows.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'yearbook-card reveal';
-                const photo = (item.foto_url && item.foto_url.startsWith('http'))
-                    ? item.foto_url
-                    : 'https://via.placeholder.com/300x300/EBF8FF/2AA8E0?text=?';
+                
+                // Validasi URL foto
+                let photo = placeholderUrl;
+                if (item.foto_url && item.foto_url.trim().length > 0) {
+                    const url = item.foto_url.trim();
+                    // Cek apakah dimulai dengan http atau https
+                    if (url.startsWith('http://') || url.startsWith('https://')) {
+                        photo = url;
+                    }
+                }
+                
+                const nama = escapeHtml(item.nama || 'Tidak Ada Nama');
+                const kelas = escapeHtml(item.kelas || '');
+                const citaCita = escapeHtml(item.cita_cita || '');
+                const quote = escapeHtml(item.quote || '');
+                
                 card.innerHTML = `
-                    <img src="${photo}" alt="${escapeHtml(item.nama || '')}" class="yearbook-photo" onerror="this.src='https://via.placeholder.com/300x300/EBF8FF/2AA8E0?text=?'">
+                    <div class="yearbook-photo-wrapper">
+                        <img 
+                            src="${photo}" 
+                            alt="${nama}" 
+                            class="yearbook-photo" 
+                            loading="lazy"
+                            onerror="this.src='${placeholderUrl}'; this.classList.add('placeholder-img');"
+                        >
+                    </div>
                     <div class="yearbook-info">
-                        <div class="yearbook-name">${escapeHtml(item.nama || '')}</div>
-                        <div class="yearbook-kelas">${escapeHtml(item.kelas || '')}</div>
-                        <div class="yearbook-cita">${escapeHtml(item.cita_cita || '')}</div>
-                        <div class="yearbook-quote">"${escapeHtml(item.quote || '')}"</div>
+                        <div class="yearbook-name">${nama}</div>
+                        <div class="yearbook-kelas">${kelas}</div>
+                        <div class="yearbook-cita">${citaCita}</div>
+                        <div class="yearbook-quote">"${quote}"</div>
                     </div>`;
                 grid.appendChild(card);
+                validCards++;
             });
+            
+            console.log(`Yearbook dimuat: ${validCards} siswa`);
             observeReveals();
         }
 
-        // ============ COMMENT SYSTEM (OPTIMIZED) ============
+        // ============ COMMENT SYSTEM ============
         let commentsData = [];
 
         async function loadComments() {
@@ -1707,7 +2036,6 @@
 
             const reply = { id: Date.now().toString(), nama, pesan, timestamp: new Date().toISOString() };
             
-            // Masukkan sementara ke lokal agar instan tampil
             comment.replies.push(reply);
             localStorage.setItem('alumni_comments', JSON.stringify(commentsData));
             renderComments();
@@ -1758,6 +2086,7 @@
 
         // ============ INIT ============
         async function initPage() {
+            createSpringPetals(); // Trigger kelopak bunga musim semi
             await loadAbout();
             await loadGaleri();
             await loadAlbums();
@@ -1773,7 +2102,6 @@
             initPage();
         }
 
-        // Auto-refresh comments every 30s when tab is visible
         setInterval(() => {
             if (document.visibilityState === 'visible') loadComments();
         }, 30000);
